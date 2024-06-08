@@ -111,8 +111,6 @@ namespace req
 
             string income = income_txtbox.Text;
 
-            // Assuming type_combo is a ComboBox representing the scholarship type
-           
 
             if (int.Parse(income) > 10000 || int.Parse(income) < 1000)
             {
@@ -275,7 +273,21 @@ namespace req
 
         private void del_btn_Click_1(object sender, EventArgs e)
         {
-            
+            string income = income_txtbox.Text;
+            if (int.Parse(income) < 10000 || int.Parse(income) > 0)
+            {
+
+                MessageBox.Show("NO! Student is Qualified", "Income Accepted", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string grade = gwa_txtbox.Text;
+            if (double.Parse(grade) < 2.5)
+            {
+
+                MessageBox.Show("NO! Student is Qualified", "GWA Met!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string reject = $"UPDATE student SET status = 'Rejected' WHERE student_id = {idno}";
             conn.Open();
             cmd = new MySqlCommand(reject, conn);
